@@ -1,0 +1,68 @@
+<div>
+  <div class="page-header">
+    <h1>Live Stock Tracker</h1>
+  </div> 
+  <div class ="row">
+    <div class="col-md-2"> 
+      <label><h4>Select Stock to track</h4> </label>
+       
+    
+    </div>
+    <div class="col-md-3">
+      <select  (change)="loadStock($event.target.value)" class="form-control">
+          <option *ngFor="let company of stockCompanyList" [value]="company">{{company}}</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-default" (click) = "addCompanyStock()">Add Company Stock</button>    
+    </div>   
+    <div class="col-md-4">
+       <div *ngIf="slectedStock">
+        <label>Stock </label> : {{slectedStock.company}} 
+        <label>Value </label>: {{slectedStock.value | currency: 'INR':true}} <br>
+        <label> Updated on</label> : {{slectedStock.priceUdateDate | date:'dd/MM/yyyy hh:mm:ss'}} 
+      </div>
+    </div>
+
+  </div><hr>
+  <div class="row">
+    <div class="col-md-12"> <h3>Selected Stocks </h3> </div>
+  </div><br>
+  <div class="row">
+    <div *ngIf="userStockList.length > 0" class="col-md-12" >
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Purchased At</th>
+          <th>Purchased Value</th>
+          <th>Current Value</th>
+          <th>Last updated At</th>
+          <th>Remove Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let userStock of userStockList; let i = index">
+          <td>{{userStock.company}}</td>
+          <td>{{userStock.purchasedDate | date:'medium'}}</td>
+          <td>{{userStock.purchasedValue | currency: 'INR':true}}</td>
+          <td [class]="(i ==recentUpdatedStockIndex)? 'updated': 'normal'">{{userStock.currentValue | currency: 'INR':true}}</td>
+          <td>{{userStock.lastUpdatedDate | date:'medium'}}</td>         
+          
+          <td><button type="button" class="btn btn-link" (click) = "removeUserStock(i)">Remove</button></td>
+        </tr>
+      </tbody>
+  </table>
+    </div>
+    </div>
+  <div>
+</div>
+
+  
+  
+
+
+</div>
+
+
+  
