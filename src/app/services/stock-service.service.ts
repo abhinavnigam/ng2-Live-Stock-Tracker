@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import {Subject} from '../../../node_modules/rxjs/Subject';
 
-//import {STOCKLIST} from '../data/stockList';
-import {StockExchange} from '../data/stockExchange';
-import {Stock} from '../data/Stock';
+import {StockExchange} from '../model/stockExchange';
+import {Stock} from '../model/Stock';
 
 @Injectable()
 export class StockService {
@@ -10,18 +10,20 @@ export class StockService {
   constructor() { 
     this.stocks = StockExchange.getAllStock();
   }
-
+  
+  // Names of all the company in the stockExchange
   getAllListedCompany(): string[]{
     return this.stocks.map(st => st.company);
   }
 
+  // Get Stock of the company input
   getStockByCompanyName(companyName:string)
   {
     return this.stocks.find(st => st.company == companyName);
   }
-
-  getStockWatcher(){
-    return StockExchange.stockObserver;
+  
+  // Get the Observer object that notifies stock value change
+  getStockWatcher() : Subject<Stock>{
+    return StockExchange.stockObserverable;
   }
-
 }

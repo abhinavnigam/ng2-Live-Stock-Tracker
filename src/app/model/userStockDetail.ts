@@ -1,3 +1,4 @@
+// Used to display details of the seleted stock
 export class UserStock{
     company: string;
     purchasedValue : number;
